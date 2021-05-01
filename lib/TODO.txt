@@ -1,0 +1,35 @@
+
+Pagina Inicio:
+-Poner un logo empresarial*************
+
+
+Pagina calendario:
+-cambiar el auto por el logo de la empresa************
+
+Pagina detalles de auto:
+-poner un carrusel de fotos*********
+-cuando abre la imagen que se pueda rotar la pantalla
+
+
+Pagina Confirma reserva:
+-agregar detalles del auto elegido y fechas elegidas*************
+-campos de texto con datos personales*************
+
+
+Pagina pagar:
+-en toggle buttons opacar los botones no elegidos
+-Agregar campo DNI************
+-Cuando completa el nro de tarjeta mostrar check azul
+
+
+Pagina final:
+-Hacer alguna grafica mas linda**********
+-Poner mi nombre y redes sociales********
+
+
+En general:
+-Poner una tipografia mas linda************
+-cambiar icono de acceso andreoid x logo******
+-Subir a gitHub
+
+
