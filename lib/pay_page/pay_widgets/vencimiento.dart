@@ -5,65 +5,54 @@ import 'package:flutter/services.dart';
 class FechaVencimiento extends StatefulWidget {
 
   const FechaVencimiento({
-
     Key key,
-
   }) : super(key: key);
-
-
-
   @override
   _FechaVencimientoState createState() => _FechaVencimientoState();
 }
 
 class _FechaVencimientoState extends State<FechaVencimiento> {
-  String get titulo => null;
 
+  final _controller = TextEditingController();
 
- // final _clearTexto = TextEditingController();
+  @override
+  void initState() { 
+    super.initState();
+    _controller.addListener((){
+      setState(() { });
+    });        
+  }
 
   @override
   Widget build(BuildContext context) {
 
+    final _clear = IconButton(onPressed: (){ _controller.clear(); }, icon: Icon(Icons.close, color: kDarkGrey,));
+
     return
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Vencimiento',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 12),
+    Column(
 
-          TextField(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
 
+        Text('Vencimiento', style: TextStyle(fontWeight: FontWeight.bold), ),
+
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: kPaddingSmallSmall),
+          child: TextField(
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               LengthLimitingTextInputFormatter(4),
               new CardNumberInputFormatter()
-            ],
-
-            //maxLength: 16,
-            
+            ],  
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
-
-            decoration: InputDecoration(
-                hintText: '00/00',
-                hintStyle: TextStyle(color: kLightGrey),
-
-                suffixIcon: Icon(
-                  Icons.check_circle_outline,
-                  color: kDarkGrey,
-                ),
-                
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadiusSmall), borderSide: BorderSide(color: kYellow))),
-          )
-
-        ],
-      ),
+            decoration: kInputDecoration(
+              hintText: '00 / 00',
+              suffix: _clear
+            )
+          ),
+        )
+      ],
     );
   }
 }

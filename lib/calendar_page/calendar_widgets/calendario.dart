@@ -25,7 +25,14 @@ class _CalendarSelectionRangeState extends State<CalendarSelectionRange> {
   Widget build(BuildContext context) {
 
     return TableCalendar(
-      
+
+        //shouldFillViewport: true,
+        rowHeight: 45,
+        availableGestures: AvailableGestures.verticalSwipe,
+                calendarStyle: CalendarStyle(
+
+        ),
+          
         locale: 'es_ES',
         firstDay: kFirstDay,
         lastDay: kLastDay,
@@ -33,7 +40,6 @@ class _CalendarSelectionRangeState extends State<CalendarSelectionRange> {
         selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
         rangeStartDay: _rangeStart,
         rangeEndDay: _rangeEnd,
-        //calendarFormat: _calendarFormat,
         rangeSelectionMode: _rangeSelectionMode,
 
         onDaySelected: (selectedDay, focusedDay) {

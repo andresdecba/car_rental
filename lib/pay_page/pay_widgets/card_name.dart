@@ -18,7 +18,6 @@ class _NombreCompletoState extends State<NombreCompleto> {
   @override
   void initState() { 
     super.initState();
-
     _controller.addListener((){
       setState(() { });
     });        
@@ -27,38 +26,27 @@ class _NombreCompletoState extends State<NombreCompleto> {
   @override
   Widget build(BuildContext context) {
 
-    final clear = IconButton(
-      icon: Icon(Icons.close),
-      onPressed: () {
-        _controller.clear();  
-      },
-    );
+    final clear = IconButton(onPressed: (){ _controller.clear(); }, icon: Icon(Icons.close, color: kDarkGrey,));
 
     return
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Nombre completo',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 12),
-          
-          TextField(
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text( 'Nombre completo', style: TextStyle(fontWeight: FontWeight.bold),),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: kPaddingSmallSmall),
+          child: TextField(
             controller: _controller,
             textInputAction: TextInputAction.next,
             textCapitalization: TextCapitalization.words,
-
-            decoration: InputDecoration(
-                hintText: 'Juan Pérez',
-                hintStyle: TextStyle(color: kLightGrey),                
-                suffixIcon: clear,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadiusSmall), borderSide: BorderSide(color: kYellow))),
+            decoration: kInputDecoration(
+              hintText:  'Nombre Completo',
+              suffix: clear
+            ),
           ),
-        ],
-      ),
+
+        ),
+      ],
     );
   }
 }

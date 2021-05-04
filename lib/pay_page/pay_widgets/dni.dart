@@ -18,7 +18,6 @@ class _DNIState extends State<DNI> {
   @override
   void initState() { 
     super.initState();
-
     _controller.addListener((){
       setState(() { });
     });        
@@ -27,39 +26,31 @@ class _DNIState extends State<DNI> {
   @override
   Widget build(BuildContext context) {
 
-    final clear = IconButton(
-      icon: Icon(Icons.close),
-      onPressed: () {
-        _controller.clear();  
-      },
-    );
+    final _clear = IconButton(onPressed: (){ _controller.clear(); }, icon: Icon(Icons.close, color: kDarkGrey,));
 
     return
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'DNI',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 12),
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [ 
+
+        Text( 'DNI', style: TextStyle(fontWeight: FontWeight.bold),),
+        
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: kPaddingSmallSmall),
           
-          TextField(
+          child: TextField(
             controller: _controller,
             textInputAction: TextInputAction.next,
             textCapitalization: TextCapitalization.words,
             keyboardType: TextInputType.number,
-
-            decoration: InputDecoration(
-                hintText: '1234567890',
-                hintStyle: TextStyle(color: kLightGrey),                
-                suffixIcon: clear,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadiusSmall), borderSide: BorderSide(color: kYellow))),
+            
+            decoration: kInputDecoration(
+              hintText: '00.000.000',
+              suffix: _clear
+            )
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

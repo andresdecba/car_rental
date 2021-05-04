@@ -9,44 +9,33 @@ Widget tarjetita({AutosModel autosModel, context, Function onTapVerMas, Function
 
   return Container(
 
-    padding: EdgeInsets.all(15),
-    margin: EdgeInsets.symmetric(vertical: 6),
-    width: double.infinity,
-    decoration: BoxDecoration(
-      color: kLightGrey,
-      border: Border.all(
-        color: kDarkGrey,
-      ),
-      borderRadius: BorderRadius.circular(20)
-    ),
+    padding: EdgeInsets.all(kPaddingSmall),
+    margin: EdgeInsets.symmetric(vertical: kPaddingSmall/2),
+    decoration: kDecoration,
 
     child: Column(
       children: [
 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
           children: [
-
             Flexible( //////////////////// INFO + FOTO DEL AUTO
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
                   Text('${autosModel.marca}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                   Text('${autosModel.modelo}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
-                  Row(  // modelo de auto y valoracion
+                  Row(
+                    // modelo de auto y valoracion
                     children: [
                       Icon(
                         Icons.star,
                         color: kYellow,
                       ),
                       Text(autosModel.valoracion.toString()),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 5,),
                       Icon(
                         Icons.person_sharp,
                         color: kGrey,
@@ -71,8 +60,7 @@ Widget tarjetita({AutosModel autosModel, context, Function onTapVerMas, Function
         Divider(),
 
         Column( ///////////////////////// PRECIOSSS
-
-        crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
 
             Text( // precio por dia
@@ -91,14 +79,14 @@ Widget tarjetita({AutosModel autosModel, context, Function onTapVerMas, Function
 
         Divider(),
 
-         Row(  // botones ver mas y rentar
-           children: [
-             Spacer(),
-             _botoncito(onTapVerMas, titulo: 'Ver mas detalles'),
-             SizedBox(width: 8,),
-             _botoncito(onTapRentar, titulo: 'Rentar Ahora !'),
-           ],
-         )
+        Row(  // botones ver mas y rentar
+          children: [
+            Spacer(),
+            _botoncito(onTapVerMas, titulo: 'Ver mas detalles'),
+            SizedBox(width: 8,),
+            _botoncito(onTapRentar, titulo: 'Rentar Ahora !'),
+          ],
+        )
       ],
     ),
   );
@@ -106,25 +94,15 @@ Widget tarjetita({AutosModel autosModel, context, Function onTapVerMas, Function
 
 ClipRRect _botoncito(Function onTap, {String titulo}) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(20),
+    borderRadius: BorderRadius.circular(kRadiusBig),
     child: GestureDetector(
-      onTap: () {
-        print('Rentar ahora');
-      },
-      child: GestureDetector(
-        onTap: () {
-          //Navigator.pushNamed(context, '/');
-        },
-        child: GestureDetector(
-          onTap: onTap, //() => Navigator.pushNamed(context, '/carDetailsPage'),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            color: kYellow,
-            child: Text(
-              titulo,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
+      onTap: onTap, //() => Navigator.pushNamed(context, '/carDetailsPage'),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        color: kYellow,
+        child: Text(
+          titulo,
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     ),

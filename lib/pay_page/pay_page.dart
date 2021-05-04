@@ -7,6 +7,8 @@ import 'package:car_rental/pay_page/pay_widgets/pay_buttons.dart';
 import 'package:car_rental/pay_page/pay_widgets/vencimiento.dart';
 import 'package:car_rental/shared_widgets/appbar.dart';
 import 'package:car_rental/shared_widgets/boton_generico.dart';
+import 'package:car_rental/ultima_pagina/ultima_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PayPage extends StatefulWidget {
@@ -24,52 +26,43 @@ class _PayPageState extends State<PayPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: appBar(
-        context,
-        titulo: 'Pagar',
-      ),
+
+      appBar: appBar( context, titulo: 'Pagar',),
+
       body: Padding(
         padding: const EdgeInsets.all(kPaddingSmall),
+
         child: SingleChildScrollView(
-          reverse: true, // es para que no haya overflow al momento de abrir el teclado
+
           child: Column(
-            children: [
-              Container(
-                decoration: kDecoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(kPaddingSmall),
-                  child: Column(
-                    children: [
+            children: [       
 
-                      PayButtons(),  /////// botones elegir tarjeta
-
-                      SizedBox(
-                        height: 8,
-                      ),
-
-                      NumeroDeTarjeta(),
-                      NombreCompleto(),
-                      DNI(),
-
-                      Row(
-                        children: [
-                          Expanded(child: FechaVencimiento( ) ),//textInput( titulo: 'Fecha vencimiento', hintText: '00/00' )), ///// fecha vencimiento
-                          SizedBox( width: 8 ),
-                          Expanded(child: CodigoTarjeta() ),//textInput( titulo: 'Código', hintText: '000' )), //// codigo tarjeta
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
+              /////////////// formularios
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+
+                  PayButtons(),
+                  SizedBox(height: kPaddingSmall,),
+                  NumeroDeTarjeta(),
+                  SizedBox(height: kPaddingSmall,),                  
+                  NombreCompleto(),
+                  SizedBox(height: kPaddingSmall,),
+                  DNI(),
+                  SizedBox(height: kPaddingSmall,),
+                  FechaVencimiento(),
+                  SizedBox(height: kPaddingSmall,),
+                  CodigoTarjeta(),
+                  SizedBox(height: kPaddingSmall,),
+                ],
+              ),
+
+              ///////////// acepto terminos
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox( ///////////// acepto terminos
+                  Checkbox( 
                     value: acepto,
                     onChanged: (data) {
                       setState(() {
@@ -82,11 +75,9 @@ class _PayPageState extends State<PayPage> {
                   Text('Acepto los términos y condiciones')
                 ], 
               ),
-              SizedBox(
-                height: 10,
-              ),
-
-              botonGenerico( ///// botonardo continuar
+              
+              /////////// botonardo continuar
+              botonGenerico( 
                 titulo: 'Pagar y Continuar',
                 bgColor: acepto == false ? kDarkGrey : kYellow,
                 onPress: (){
@@ -97,7 +88,8 @@ class _PayPageState extends State<PayPage> {
                     padding: EdgeInsets.all(16),
                     )
                   ) :
-                  Navigator.pushNamed(context, '/ultimaPagina');
+                  Navigator.push(context, CupertinoPageRoute(builder: (builder) =>UltimaPagina()));
+                  //Navigator.pushNamed(context, '/ultimaPagina');
                 }  
               ) 
             ],

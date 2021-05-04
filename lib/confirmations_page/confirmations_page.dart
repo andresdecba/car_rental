@@ -1,15 +1,16 @@
 import 'package:car_rental/constatnts.dart';
 import 'package:car_rental/models.dart';
+import 'package:car_rental/pay_page/pay_page.dart';
 import 'package:car_rental/shared_widgets/appbar.dart';
 import 'package:car_rental/shared_widgets/boton_generico.dart';
 import 'package:car_rental/singleton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'confirmations_widgets/tile.dart';
 
 class ConfirmationPage extends StatelessWidget {
 
   const ConfirmationPage( {this.recibirDatos} );
-
   final AutosModel recibirDatos;
 
   @override
@@ -19,32 +20,18 @@ class ConfirmationPage extends StatelessWidget {
         appBar: appBar(context, titulo: 'Confirmar reserva'),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(kPaddingBig),
+            padding: const EdgeInsets.all(kPaddingSmall),
             child: Column(
               children: [
 
                 resumen( recibirDatos ),
-
-                SizedBox(
-                  height: 15,
-                ),
-
                 _resumenDeLaOrden(recibirDatos: recibirDatos ),
-                
-                SizedBox(
-                  height: 15,
-                ),
-
                 _completeConSusDatos(context),
-
-                SizedBox(
-                  height: 15,
-                ),
-
                 botonGenerico(
                   bgColor: kYellow,
                   titulo: 'Confirmar y pagar',
-                  onPress: () => Navigator.pushNamed(context, '/payPage'))
+                  onPress: () => Navigator.push(context, CupertinoPageRoute(builder: (builder) => PayPage())) //() => Navigator.pushNamed(context, '/payPage')
+                )
               ],
             ),
           ),
@@ -65,12 +52,12 @@ Widget resumen ( AutosModel recibirDatos ){
         titulo: 'Modelo:',
         trailingIcon: '${recibirDatos.marca} ${recibirDatos.modelo}', // precio x dia * cant de dias
       ),
-      Divider( height: 2, thickness: 2 ),
+      Divider(height: 0.5,),
       tile(
         titulo: 'Total de dias:',
         trailingIcon: '${_servicio.diasTOTALES}',
       ),
-      Divider( height: 2, thickness: 2 ),  
+      Divider(height: 0.5,),
       tile(
         titulo: 'Destino:',
         trailingIcon: '${_servicio.destino}',
@@ -79,7 +66,7 @@ Widget resumen ( AutosModel recibirDatos ){
   );
 }
 
-DecoratedBox _resumenDeLaOrden( {AutosModel recibirDatos, }) {
+Widget _resumenDeLaOrden( {AutosModel recibirDatos, }) {
 
   final _servicio = ServicioSingleton();
 
@@ -88,18 +75,17 @@ DecoratedBox _resumenDeLaOrden( {AutosModel recibirDatos, }) {
   double _depositoReintegrable = (recibirDatos.precio * _servicio.diasTOTALES) / 4 .toInt().truncate();
   double _totalAPagar = _precioBase + _gastosMasAccesorios + _depositoReintegrable.toInt().truncate();
   
-
-  return DecoratedBox(
-
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: kPaddingSmall),
     decoration: BoxDecoration(
-                    border: Border.all(color: kBlue, width: 1, style: BorderStyle.solid),
-                    color: kWhite,
-                    borderRadius: BorderRadius.circular(kRadiusSmall),
-                  ),
+      border: Border.all(color: kBlue, width: 1, style: BorderStyle.solid),
+      color: kWhite,
+      borderRadius: BorderRadius.circular(kRadiusSmall),
+    ),
 
     child: Column(
       children: [
-        
+
         Container( // titulo en azul
           height: 50,
           width: double.infinity,
@@ -119,23 +105,17 @@ DecoratedBox _resumenDeLaOrden( {AutosModel recibirDatos, }) {
                 titulo: 'Precio base',
                 trailingIcon: '\$ $_precioBase', // precio x dia * cant de dias
               ),
-              Divider(
-                height: 2,
-              ),
+              Divider(height: 0.5,),  
               tile(
                 titulo: 'Gastos + accesrios',
                 trailingIcon: '\$ $_gastosMasAccesorios',
               ),
-              Divider(
-                height: 2,
-              ),
+              Divider(height: 0.5,),  
               tile(
                 titulo: 'Deposito reintegrable',
                 trailingIcon: '\$ $_depositoReintegrable',
               ),
-              Divider(
-                height: 2,
-              ),
+              Divider(height: 0.5,),
               tile(
                 titulo: 'Total a pagar',
                 trailingIcon: '\$ $_totalAPagar', bold: true
@@ -148,16 +128,16 @@ DecoratedBox _resumenDeLaOrden( {AutosModel recibirDatos, }) {
   );
 }
 
-DecoratedBox _completeConSusDatos(BuildContext context) {
-  return DecoratedBox(
+Widget _completeConSusDatos(BuildContext context) {
+
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: kPaddingSmall),
     decoration: kDecoration,
     child: Column(
-
       children: [
-
-        Container( // titulo en azul
+        
+        Container( // titulo en gris
           height: 50,
-          width: double.infinity,
           decoration: BoxDecoration(color: kDarkGrey, borderRadius: BorderRadius.vertical(top: Radius.circular(kRadiusSmall))),
           child: Center(
               child: Text(
@@ -166,7 +146,7 @@ DecoratedBox _completeConSusDatos(BuildContext context) {
           )),
         ),
 
-        Padding(
+        Padding( // campos de texto
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
@@ -196,8 +176,8 @@ Widget datosPersonales ( String hinttext, {TextInputAction action = TextInputAct
       textInputAction: action,
       textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
-          hintText: hinttext,
-          hintStyle: TextStyle(color: kGrey, fontStyle: FontStyle.italic),
+        hintText: hinttext,
+        hintStyle: TextStyle(color: kGrey, fontStyle: FontStyle.italic),
       ),
     ),
   );

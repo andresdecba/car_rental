@@ -18,19 +18,20 @@ class _BotonDesplegableState extends State<BotonDesplegable> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       decoration: kDecoration,
-      padding: EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(horizontal: kPaddingSmall),
+      margin: EdgeInsets.symmetric(vertical: kPaddingSmallSmall),
+
       child: DropdownButton(
+
         hint: Text('Seleccionar'),
         value: mostrarValor,
         icon: const Icon(Icons.arrow_downward),
-        iconSize: 24,
-        //elevation: 16,
-        style: const TextStyle(color: Colors.black),
+        style: const TextStyle(color: kBlack, fontFamily: 'Exo'),
         isExpanded: true,
 
-        itemHeight: 60,
         underline: Opacity(opacity: 1),
 
         onChanged: (newValue) {

@@ -1,5 +1,5 @@
 import 'package:car_rental/constatnts.dart';
-import 'package:car_rental/shared_widgets/appbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UltimaPagina extends StatelessWidget {

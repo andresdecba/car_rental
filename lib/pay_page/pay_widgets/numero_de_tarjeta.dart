@@ -16,46 +16,51 @@ class _NumeroDeTarjetaState extends State<NumeroDeTarjeta> {
   final _controller = TextEditingController();
 
   @override
+  void initState() { 
+    super.initState();
+    _controller.addListener((){
+      setState(() { });
+    });        
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    return
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Número de tarjeta',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 12),
+    final clear = IconButton(onPressed: (){ _controller.clear(); }, icon: Icon(Icons.close, color: kDarkGrey,));
 
-          TextField(
+    return
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+        Text( 'Número de tarjeta', style: TextStyle(fontWeight: FontWeight.bold),),
+
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: kPaddingSmallSmall),
+          child: TextField(
             controller: _controller,
+
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(20),
+              LengthLimitingTextInputFormatter(16),
               new CardNumberInputFormatter(),
             ],
             
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              hintText: '0000 0000 0000 0000 0000',
-              hintStyle: TextStyle(color: kLightGrey),
-
-              //suffixIcon: buffer.length < 20 ? Icon(Icons.check_circle_outline, color: kDarkGrey,) : Icon(Icons.check_circle_outline, color: kYellow,),
-              
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadiusSmall), borderSide: BorderSide(color: kYellow))
+            decoration: kInputDecoration(
+              hintText:  '0000 0000 0000 0000',
+              suffix: clear,
             )
-          )
+          ),
+        )
 
-        ],
-      ),
+      ],
     );
   }
 }
 
+////// valida que se escribam solo 16 nros. en grupos de a 4
 class CardNumberInputFormatter extends TextInputFormatter {
 
   @override

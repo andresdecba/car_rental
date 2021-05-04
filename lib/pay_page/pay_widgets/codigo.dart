@@ -1,11 +1,9 @@
 import 'package:car_rental/constatnts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CodigoTarjeta extends StatefulWidget {
 
   const CodigoTarjeta({
-
     Key key,
   }) : super(key: key);
 
@@ -14,47 +12,41 @@ class CodigoTarjeta extends StatefulWidget {
 }
 
 class _CodigoTarjetaState extends State<CodigoTarjeta> {
-  String get titulo => null;
+
+  final _controller = TextEditingController();
+
+  @override
+  void initState() { 
+    super.initState();
+    _controller.addListener((){
+      setState(() { });
+    });        
+  }
 
   @override
   Widget build(BuildContext context) {
 
+    final clear = IconButton(onPressed: (){ _controller.clear(); }, icon: Icon(Icons.close, color: kDarkGrey,));
+
     return
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Código',
-            style: TextStyle(fontWeight: FontWeight.bold),
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text( 'Código', style: TextStyle(fontWeight: FontWeight.bold),),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: kPaddingSmallSmall),
+          child: TextField(
+            controller: _controller,
+            textInputAction: TextInputAction.next,
+            textCapitalization: TextCapitalization.words,
+            decoration: kInputDecoration(
+              hintText:  '000',
+              suffix: clear
+            ),
           ),
-          SizedBox(height: 12),
 
-          TextField(
-
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(3),
-            ],
-
-            keyboardType: TextInputType.number,
-            textInputAction: TextInputAction.done,
-
-            decoration: InputDecoration(
-                hintText: '000',
-                hintStyle: TextStyle(color: kLightGrey),
-
-                suffixIcon: Icon(
-                  Icons.check_circle_outline,
-                  color: kDarkGrey,
-                ),
-                
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadiusSmall), borderSide: BorderSide(color: kYellow))),
-          )
-
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

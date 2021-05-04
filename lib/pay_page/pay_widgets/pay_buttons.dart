@@ -21,8 +21,7 @@ class _PayButtonsState extends State<PayButtons> {
 
     return ToggleButtons(
       children: [
-        SizedBox(child:
-        Image.asset('images/icons/master1.png'), height: 49,),
+        SizedBox(child: Image.asset('images/icons/master1.png'), height: 49,),
         SizedBox(child: Image.asset('images/icons/visa1.png'), height: 49,),
         SizedBox(child: Image.asset('images/icons/paypal1.png'), height: 49,),
       ],
